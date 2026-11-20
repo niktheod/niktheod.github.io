@@ -1,0 +1,53 @@
+---
+layout: default
+description: >-
+  Nikos Theodoridis: PhD student at the University of Limerick working on
+  vision-language-action and world-action models for autonomous driving.
+---
+      <!-- ============ INTRO ============ -->
+      <section class="hero">
+        <div>
+          <h1>About Me</h1>
+          <p class="tagline">PhD student · University of Limerick</p>
+
+          <p>
+            Hi, I'm Nikos! I'm a PhD student at the University of Limerick, working on
+            <strong>VLAs and world-action models for autonomous driving</strong>. I'm especially interested in analysing the
+            shortcomings of these models in rare and hazardous scenes, and in improving them through
+            imitation and reinforcement learning.
+          </p>
+
+          <ul class="social">
+            <li><a href="https://scholar.google.com/citations?user=sLtLynUAAAAJ&amp;hl=en">Google Scholar</a></li>
+            <li><a href="https://github.com/niktheod">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/nikos-theodoridis-054346190">LinkedIn</a></li>
+            <li><a href="https://x.com/NikosTheod99">X</a></li>
+          </ul>
+
+          <ul class="contact">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              <a href="mailto:niktheod06@gmail.com">niktheod06@gmail.com</a>
+            </li>
+          </ul>
+        </div>
+
+        <img class="portrait" src="{{ '/images/profile.jpg' | relative_url }}" alt="Portrait of Nikos Theodoridis" width="280" height="350">
+      </section>
+
+      <!-- ============ LATEST WRITING ============
+           Filled in automatically with your 3 newest posts.
+           Hidden when there are no posts yet. -->
+      {% if site.posts.size > 0 %}
+      <section>
+        <h2 class="eyebrow">Latest writing</h2>
+        <ol class="post-list">
+          {% for post in site.posts limit:3 %}
+          <li>
+            <time class="post-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+            <h3 class="post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          </li>
+          {% endfor %}
+        </ol>
+      </section>
+      {% endif %}

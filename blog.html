@@ -1,0 +1,23 @@
+---
+layout: default
+title: Blog
+description: Writing by Nikos Theodoridis.
+---
+      <h1 class="page-title">Blog</h1>
+      <h2 class="eyebrow">Notes from my research</h2>
+
+      <!-- Filled in automatically from the files in _posts/, newest first. -->
+      {% if site.posts.size > 0 %}
+      <ol class="post-list blog-list">
+        {% for post in site.posts %}
+        <li>
+          <time class="post-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+          <h3 class="post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          {% if post.summary %}<p class="post-summary">{{ post.summary }}</p>{% endif %}
+          <a class="read-more" href="{{ post.url | relative_url }}">Read the post →</a>
+        </li>
+        {% endfor %}
+      </ol>
+      {% else %}
+      <p>No posts yet.</p>
+      {% endif %}

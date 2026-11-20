@@ -1,0 +1,36 @@
+# Site settings, used by Jekyll (GitHub Pages builds the site from these).
+# After changing this file, push as usual; GitHub rebuilds the site.
+
+title: Nikos Theodoridis
+description: >-
+  PhD student at the University of Limerick working on VLAs and
+  world-action models for autonomous driving.
+
+# Your site's address. Change it if your GitHub username isn't niktheod.
+url: "https://niktheod.github.io"
+baseurl: ""
+
+timezone: Europe/Dublin
+
+# Posts in _posts/2026-12-01-my-post.md are published at /blog/my-post.html
+permalink: /blog/:title:output_ext
+
+# Every post uses the post template (_layouts/post.html) automatically
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false      # a single line break inside a paragraph doesn't start a new line
+  math_engine: mathjax
+
+# Files that should not end up on the website
+exclude:
+  - README.md
+  - .claude
+  - .gitignore

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Image placeholder">
+  <defs>
+    <linearGradient id="p" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dfe7ee"/>
+      <stop offset="1" stop-color="#bfcfdd"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="400" fill="url(#p)"/>
+  <g fill="none" stroke="#8ea3b6" stroke-width="3">
+    <path d="M80 300 L200 200 L290 260 L420 140 L560 230"/>
+  </g>
+  <g fill="#8ea3b6">
+    <circle cx="200" cy="200" r="7"/><circle cx="290" cy="260" r="7"/><circle cx="420" cy="140" r="7"/>
+  </g>
+  <text x="320" y="360" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#6e8396">Replace with a figure or screenshot</text>
+</svg>

@@ -1,0 +1,490 @@
+/* ==========================================================================
+   Personal site styles
+   Edit the variables in :root to change colors and fonts everywhere.
+   ========================================================================== */
+
+:root {
+  --bg: #f4f1ec;
+  --bg-2: #e6edf2;
+  --text: #1d2126;
+  --muted: #545b63;
+  --faint: #868c93;
+  --line: rgba(29, 33, 38, 0.12);
+  --accent: #2c5a85;
+  --card: rgba(255, 255, 255, 0.55);
+  --card-line: rgba(29, 33, 38, 0.08);
+
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --maxw: 920px;
+  --gutter: 24px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14171b;
+    --bg-2: #1a2027;
+    --text: #e7e5e1;
+    --muted: #a7adb4;
+    --faint: #7c838b;
+    --line: rgba(255, 255, 255, 0.12);
+    --accent: #8db4d9;
+    --card: rgba(255, 255, 255, 0.04);
+    --card-line: rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* ---------- Base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image: linear-gradient(120deg, var(--bg) 0%, var(--bg-2) 100%);
+  background-attachment: fixed;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 3px;
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+a:hover { color: var(--accent); text-decoration-color: currentColor; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.skip-link {
+  position: absolute; left: -9999px; top: 8px;
+  background: var(--text); color: var(--bg); padding: 6px 12px; border-radius: 4px;
+}
+.skip-link:focus { left: 8px; }
+
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Small uppercase label, used for section headings */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin: 0 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ---------- Header / nav ---------- */
+
+.site-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+
+.brand {
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  font-size: 17px;
+  text-decoration: none;
+  color: var(--muted);
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] { color: var(--text); }
+.site-nav a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+}
+
+/* ---------- Home: hero ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 48px;
+  align-items: start;
+  padding: 24px 0 56px;
+}
+
+.hero h1 {
+  font-size: clamp(30px, 5vw, 40px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+
+.tagline {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--faint);
+  margin: 0 0 24px;
+}
+
+.hero p { margin: 0 0 16px; color: var(--muted); }
+.hero p strong { color: var(--text); font-weight: 600; }
+.hero p em { color: var(--text); }
+
+.portrait {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.social, .contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+}
+.social a { font-size: 17px; }
+
+.contact {
+  margin-top: 14px;
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--muted);
+}
+.contact li { display: flex; align-items: center; gap: 6px; }
+.contact svg { width: 15px; height: 15px; flex: none; opacity: 0.7; }
+
+/* ---------- Lists of posts (home + blog) ---------- */
+
+.post-list { list-style: none; margin: 0; padding: 0; }
+
+.post-list li {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.post-list li:last-child { border-bottom: 0; }
+
+.post-date {
+  display: block;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--faint);
+  margin-bottom: 4px;
+}
+
+.post-title {
+  font-size: 22px;
+  line-height: 1.3;
+  margin: 0;
+  font-weight: 400;
+}
+.post-title a { text-decoration: none; }
+
+.post-summary { margin: 8px 0 10px; color: var(--muted); max-width: 60ch; }
+
+.read-more { font-size: 16px; }
+
+.blog-list .post-title { font-size: 28px; }
+.blog-list li { padding: 32px 0; }
+
+/* ---------- Page headings ---------- */
+
+.page-title {
+  font-size: clamp(36px, 6vw, 52px);
+  font-weight: 400;
+  margin: 8px 0 32px;
+}
+
+/* ---------- Research ---------- */
+
+.featured {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 64px;
+}
+
+.featured .media img,
+.featured .media video {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 8px;
+}
+
+.badge {
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.project-name {
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0 0 6px;
+}
+
+.paper-title {
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+
+.project-desc { margin: 0 0 14px; }
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
+}
+
+.section { margin-top: 72px; }
+
+/* Publication list */
+.pub-list { list-style: none; margin: 0; padding: 0; }
+.pub-list > li {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.pub-list > li:first-child { padding-top: 4px; }
+.pub-list > li:last-child { border-bottom: 0; }
+.pub-title { font-size: 20px; font-weight: 500; line-height: 1.35; margin: 0 0 4px; }
+.pub-authors { font-size: 16px; color: var(--muted); margin: 0; }
+.pub-authors strong { color: var(--text); font-weight: 600; }
+.pub-venue { font-size: 16px; font-style: italic; color: var(--muted); margin: 0 0 6px; }
+.pub-list .project-links { font-size: 15px; }
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card img { aspect-ratio: 16 / 10; object-fit: cover; width: 100%; }
+.card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
+.card .project-name { font-size: 24px; }
+.card .project-desc { font-size: 17px; color: var(--muted); flex: 1; }
+
+/* ---------- Blog post ---------- */
+
+.post {
+  max-width: 680px;
+  margin: 0 auto;
+  padding-bottom: 32px;
+}
+.post header { margin-bottom: 36px; }
+.post h1 { font-size: clamp(34px, 6vw, 46px); font-weight: 400; line-height: 1.15; margin: 6px 0 12px; }
+.post .post-summary { font-size: 20px; }
+.post h2 { font-size: 26px; font-weight: 500; margin: 40px 0 8px; }
+.post p, .post li { font-size: 19px; }
+.post blockquote {
+  margin: 24px 0;
+  padding-left: 18px;
+  border-left: 2px solid var(--accent);
+  color: var(--muted);
+  font-style: italic;
+}
+.post figure { margin: 28px 0; }
+.post figcaption { font-family: var(--sans); font-size: 13px; color: var(--faint); margin-top: 8px; }
+.post code {
+  font-size: 0.85em;
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+.post pre {
+  overflow-x: auto;
+  padding: 14px 16px;
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-radius: 6px;
+  line-height: 1.5;
+}
+.post pre code { border: 0; padding: 0; background: none; font-size: 15px; }
+.post img { margin: 28px 0 0; border-radius: 6px; }
+/* An italic line right under an image (Markdown) is its caption */
+.post p > img + em {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-style: normal;
+  color: var(--faint);
+}
+.post mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; }
+
+.back-link { font-size: 16px; text-decoration: none; color: var(--muted); }
+
+/* Footnotes at the bottom of a post (shown on narrow screens) */
+.footnotes {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 16px;
+  color: var(--muted);
+}
+.footnotes ol { padding-left: 22px; margin: 0; }
+.post .footnotes li, .post .footnotes p { font-size: 16px; margin: 0 0 8px; }
+.footnotes .reversefootnote { text-decoration: none; margin-left: 4px; }
+a.footnote { text-decoration: none; padding: 0 1px; color: var(--accent); }
+sup[role="doc-noteref"] { line-height: 0; }
+
+/* ---------- Post layout: contents (left), text, side notes (right) ----------
+   Wide screens: three columns. Medium: text + side notes.
+   Narrow: one column, footnotes at the bottom. Filled in by js/post.js. */
+
+.is-post .container { max-width: 1300px; }
+.post-layout { max-width: 680px; margin: 0 auto; }
+.post-body h2, .post-body h3 { scroll-margin-top: 24px; }
+
+.toc, .sidenote { display: none; }
+
+.sidenote {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
+  border-radius: 4px;
+}
+.sidenote-num { font-size: 0.75em; line-height: 0; margin-right: 4px; color: var(--accent); }
+.sidenote-para { display: block; }
+.sidenote-num + .sidenote-para { display: inline; }   /* number on the same line as the text */
+.sidenote-para + .sidenote-para { margin-top: 6px; }
+.post .sidenote li, .post .sidenote p { font-size: inherit; }
+.sidenote.is-flash { animation: note-flash 1.4s ease-out; }
+@keyframes note-flash {
+  from { color: var(--text); box-shadow: 0 0 0 6px var(--card-line); background: var(--card-line); }
+}
+
+.toc ul { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: 0 0 12px; }
+.toc a {
+  position: relative;
+  display: block;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--faint);
+  text-decoration: none;
+}
+.toc a:hover { color: var(--text); }
+.toc a.is-active { color: var(--text); }
+.toc a.is-active::before { content: "•"; position: absolute; left: -14px; }
+
+@media (min-width: 1000px) {
+  .post-layout {
+    /* The notes column takes all the width left over beside the text.
+       "cqw" = 1% of this layout's width, so --note-w is exactly that leftover. */
+    container-type: inline-size;
+    --note-w: calc(100cqw - 640px - 48px);
+    max-width: none;
+    display: grid;
+    grid-template-columns: minmax(0, 640px) 1fr;
+    column-gap: 48px;
+  }
+  .post-layout .post { max-width: none; margin: 0; grid-column: 1; }
+
+  .sidenote {
+    display: block;
+    float: right;
+    clear: right;
+    position: relative;
+    width: var(--note-w);
+    margin: 4px calc(-1 * (var(--note-w) + 48px)) 14px 0;   /* pushed past the text into the notes column */
+  }
+  .has-sidenotes .footnotes { display: none; }
+}
+
+@media (min-width: 1240px) {
+  /* Left column for the contents list, kept even when a post has none,
+     so the text sits in the same place on every post. */
+  .post-layout {
+    --note-w: calc(100cqw - 180px - 640px - 96px);
+    grid-template-columns: 180px minmax(0, 640px) 1fr;
+  }
+  .post-layout .post { grid-column: 2; }
+  .has-toc .toc {
+    display: block;
+    grid-column: 1;
+    position: sticky;
+    top: 32px;
+    align-self: start;
+    padding-top: 6px;
+  }
+}
+
+/* Space below the last section of every page */
+main { padding-bottom: 72px; }
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 760px) {
+  :root { --gutter: 16px; }
+  body { font-size: 18px; }
+
+  .hero { grid-template-columns: 1fr; gap: 28px; padding-top: 8px; }
+  .portrait { max-width: 220px; order: -1; }
+
+  .featured { grid-template-columns: 1fr; gap: 24px; }
+
+  .site-nav ul { gap: 18px; }
+}
