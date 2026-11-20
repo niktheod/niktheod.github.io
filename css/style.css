@@ -334,7 +334,8 @@ a:hover { color: var(--accent); text-decoration-color: currentColor; }
 .post header { margin-bottom: 36px; }
 .post h1 { font-size: clamp(34px, 6vw, 46px); font-weight: 400; line-height: 1.15; margin: 6px 0 12px; }
 .post .post-summary { font-size: 20px; }
-.post h2 { font-size: 26px; font-weight: 500; margin: 40px 0 8px; }
+.post h2 { font-size: 26px; font-weight: 600; line-height: 1.3; margin: 44px 0 10px; }
+.post h3 { font-size: 21px; font-weight: 600; line-height: 1.3; margin: 32px 0 6px; }
 .post p, .post li { font-size: 19px; }
 .post blockquote {
   margin: 24px 0;
@@ -361,7 +362,7 @@ a:hover { color: var(--accent); text-decoration-color: currentColor; }
   line-height: 1.5;
 }
 .post pre code { border: 0; padding: 0; background: none; font-size: 15px; }
-.post img { margin: 28px 0 0; border-radius: 6px; }
+.post img { margin: 28px auto 0; border-radius: 6px; }  /* centred when narrower than the text */
 /* An italic line right under an image (Markdown) is its caption */
 .post p > img + em {
   display: block;
@@ -387,7 +388,8 @@ a:hover { color: var(--accent); text-decoration-color: currentColor; }
 .post .footnotes li, .post .footnotes p { font-size: 16px; margin: 0 0 8px; }
 .footnotes .reversefootnote { text-decoration: none; margin-left: 4px; }
 a.footnote { text-decoration: none; padding: 0 1px; color: var(--accent); }
-sup[role="doc-noteref"] { line-height: 0; }
+/* Footnote numbers: same size in the text and in the side note */
+sup[id^="fnref"], .sidenote-num { font-size: 11.25px; line-height: 0; }
 
 /* ---------- Post layout: contents (left), text, side notes (right) ----------
    Wide screens: three columns. Medium: text + side notes.
@@ -405,7 +407,7 @@ sup[role="doc-noteref"] { line-height: 0; }
   color: var(--muted);
   border-radius: 4px;
 }
-.sidenote-num { font-size: 0.75em; line-height: 0; margin-right: 4px; color: var(--accent); }
+.sidenote-num { margin-right: 4px; color: var(--accent); }
 .sidenote-para { display: block; }
 .sidenote-num + .sidenote-para { display: inline; }   /* number on the same line as the text */
 .sidenote-para + .sidenote-para { margin-top: 6px; }
@@ -452,6 +454,8 @@ sup[role="doc-noteref"] { line-height: 0; }
     margin: 4px calc(-1 * (var(--note-w) + 48px)) 14px 0;   /* pushed past the text into the notes column */
   }
   .has-sidenotes .footnotes { display: none; }
+  /* The note is already beside the text, so its number isn't a link here */
+  .has-sidenotes a.footnote { pointer-events: none; cursor: text; }
 }
 
 @media (min-width: 1240px) {
