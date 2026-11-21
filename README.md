@@ -17,7 +17,8 @@ research.html          Publication list
 blog.html              List of all posts (automatic)
 404.html               "Page not found" page
 css/style.css          All styling (colors and fonts are at the top)
-js/post.js             Blog posts: moves footnotes into the margin, builds the contents list
+js/post.js             Blog posts: moves footnotes into the margin, enlarges clicked images,
+                       builds the contents list
 images/                Photo, figures, favicon
 ```
 
@@ -45,11 +46,15 @@ Jekyll reads it for the page title and description. Leave it in place.
    headings, lists, links, figures with captions, equations and code.
    The quickest start is to copy it into `_posts/` and rename it.
    - **Figures:** put the image in `images/` and write `![description](/images/figure.png)`.
+     Readers can click any image in a post to enlarge it (and click again for full size),
+     so save figures at a high resolution.
    - **Equations:** add `math: true` to the top section, then write LaTeX between
      double dollar signs: `$$x^2$$` inline, or `$$` on lines of their own for a display equation.
    - **Side notes and references:** write `[^1]` (or `[^any-label]`) in the text and
      `[^1]: the note` further down the file. On wide screens the note appears in the
      right margin next to its line; on phones the notes are listed at the end.
+   - **TL;DR box:** put `{: .tldr}` on the line right after a paragraph to show it in a
+     shaded box, set apart from the text that follows.
    - **Contents:** on wide screens, the post's `##` headings are listed on the left,
      with the current section marked. Add `toc: false` to the top section to hide it.
 4. Push (see *Updating the site*). The post appears on the Blog page and in

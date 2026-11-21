@@ -13,9 +13,11 @@
   --accent: #2c5a85;
   --card: rgba(255, 255, 255, 0.55);
   --card-line: rgba(29, 33, 38, 0.08);
+  --box-bg: rgba(29, 33, 38, 0.05);   /* TL;DR and citation boxes */
 
   --serif: "Newsreader", Georgia, "Times New Roman", serif;
   --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, "Courier New", monospace;
 
   --maxw: 920px;
   --gutter: 24px;
@@ -32,6 +34,7 @@
     --accent: #8db4d9;
     --card: rgba(255, 255, 255, 0.04);
     --card-line: rgba(255, 255, 255, 0.08);
+    --box-bg: rgba(255, 255, 255, 0.06);
   }
 }
 
@@ -337,6 +340,16 @@ a:hover { color: var(--accent); text-decoration-color: currentColor; }
 .post h2 { font-size: 26px; font-weight: 600; line-height: 1.3; margin: 44px 0 10px; }
 .post h3 { font-size: 21px; font-weight: 600; line-height: 1.3; margin: 32px 0 6px; }
 .post p, .post li { font-size: 19px; }
+
+/* TL;DR box: a paragraph followed by {: .tldr} on the next line */
+.post .tldr {
+  margin: 0 0 36px;
+  padding: 18px 22px;
+  background: var(--box-bg);
+  border-radius: 10px;
+  font-size: 18px;
+}
+@media (max-width: 560px) { .post .tldr { padding: 14px 16px; } }
 .post blockquote {
   margin: 24px 0;
   padding-left: 18px;
@@ -347,6 +360,7 @@ a:hover { color: var(--accent); text-decoration-color: currentColor; }
 .post figure { margin: 28px 0; }
 .post figcaption { font-family: var(--sans); font-size: 13px; color: var(--faint); margin-top: 8px; }
 .post code {
+  font-family: var(--mono);
   font-size: 0.85em;
   background: var(--card);
   border: 1px solid var(--card-line);
@@ -362,6 +376,23 @@ a:hover { color: var(--accent); text-decoration-color: currentColor; }
   line-height: 1.5;
 }
 .post pre code { border: 0; padding: 0; background: none; font-size: 15px; }
+
+/* Citation box: any ```bibtex block in a post. Long lines wrap instead of
+   scrolling sideways, and the wrapped part is indented. */
+.post .language-bibtex pre {
+  padding: 20px 24px;
+  background: var(--box-bg);
+  border: 0;
+  border-radius: 10px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  text-indent: 4ch each-line hanging;
+}
+.post .language-bibtex pre code { font-size: 14px; line-height: 1.5; color: var(--muted); }
+@media (max-width: 560px) {
+  .post .language-bibtex pre { padding: 16px 18px; }
+  .post .language-bibtex pre code { font-size: 12.5px; }
+}
 .post img { margin: 28px auto 0; border-radius: 6px; }  /* centred when narrower than the text */
 /* An italic line right under an image (Markdown) is its caption */
 .post p > img + em {
@@ -373,6 +404,80 @@ a:hover { color: var(--accent); text-decoration-color: currentColor; }
   color: var(--faint);
 }
 .post mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; }
+
+/* ---------- Enlarged image (click an image in a post; js/post.js) ----------
+   First view fits the screen; clicking the image again shows it at full
+   size, scrollable in both directions. */
+
+.post img.zoomable { cursor: zoom-in; }
+.post img.zoomable:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+html.lightbox-open { overflow: hidden; }   /* the page behind doesn't scroll */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--text);
+  background: var(--bg);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.lightbox::backdrop { background: transparent; }
+
+.lightbox figure {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  padding: 60px var(--gutter) 28px;
+}
+.lightbox.is-full figure { width: max-content; min-width: 100%; }
+.lightbox img {
+  /* "auto" margins centre the image, and drop to 0 when it's bigger than the
+     screen, so a full-size image can be scrolled to every edge */
+  margin: auto auto 0;
+  max-width: calc(100vw - 2 * var(--gutter));
+  max-height: calc(100vh - 140px);
+  max-height: calc(100dvh - 140px);
+  border-radius: 6px;
+  cursor: default;
+}
+.lightbox.can-zoom img { cursor: zoom-in; }
+.lightbox.is-full img { max-width: none; max-height: none; cursor: zoom-out; }
+
+.lightbox figcaption {
+  margin: 12px auto auto;
+  max-width: min(680px, 100vw - 2 * var(--gutter));
+  font-family: var(--sans);
+  font-size: 13px;
+  text-align: center;
+  color: var(--faint);
+}
+.lightbox figcaption:empty { display: none; }
+.lightbox.is-full figcaption { margin-left: 0; text-align: left; }
+
+.lightbox-close {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--text);
+  font: 24px/1 var(--sans);
+  cursor: pointer;
+}
+.lightbox-close:hover { border-color: var(--muted); }
 
 .back-link { font-size: 16px; text-decoration: none; color: var(--muted); }
 
